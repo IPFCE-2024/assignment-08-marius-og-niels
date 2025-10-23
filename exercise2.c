@@ -8,7 +8,6 @@
  */
 
 #include "exercise2.h"
-#include <assert.h>
 #include <stdio.h>
 
 /* 
@@ -32,6 +31,7 @@ node* sorted = NULL;
         if (sorted == NULL || sorted->data >= current->data) {
             current->next = sorted;
             sorted = current;
+
             } 
             
             else {
@@ -40,10 +40,10 @@ node* sorted = NULL;
             while (temp->next != NULL && temp->next->data < current->data) {
                 temp = temp->next;
             }
-            
+
             current->next = temp->next;
             temp->next = current;
-        }
+        } 
     }
 
     return sorted; 

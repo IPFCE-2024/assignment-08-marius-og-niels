@@ -5,9 +5,10 @@
  * Implement a queue using singly-linked lists.
  * The queue should maintain FIFO (First-In, First-Out) order.
  */
+/* Node structure for the queue */
 
-#include "exercise3.h"
-
+#include <stdlib.h>
+#include "./include/exercise3.h"
 /* 
  * Initialize an empty queue
  * q: pointer to the queue structure
@@ -16,6 +17,9 @@
  */
 void initialize(queue *q) {
     /* TODO: Initialize the queue */
+    q->front = NULL;
+    q->rear = NULL;
+    q->count = 0;
 }
 
 /* 
@@ -28,6 +32,20 @@ void initialize(queue *q) {
  */
 void enqueue(queue *q, int x) {
     /* TODO: Implement enqueue */
+    node *new = malloc(sizeof(node));
+    new->data = x;
+    new->next = NULL;
+    if (q->count == 0)
+    {
+        q->front = new;
+        q->rear = new;
+    }
+    else
+    {
+        q->rear->next = new;
+        q->rear = new;
+    } 
+    q->count++;
 }
 
 /* 
@@ -39,7 +57,19 @@ void enqueue(queue *q, int x) {
  */
 int dequeue(queue *q) {
     /* TODO: Implement dequeue */
-    return 0;  
+    assert(q->count > 0);
+    int x = q->front->data;
+    node *temp = q->front->next;
+    free(q->front);
+    q->front = temp;
+    q->count--;
+    if (q->count == 0)
+    {
+        q->front = NULL;
+        q->rear = NULL;
+    }
+    
+    return x; 
 }
 
 /* 
@@ -49,7 +79,8 @@ int dequeue(queue *q) {
  */
 bool empty(const queue *q) {
     /* TODO: Implement empty check */
-    return false; 
+    
+    return (q->count == 0); 
 }
 
 /* 
@@ -75,4 +106,3 @@ void print_queue(const queue *q) {
     }
     printf("\n");
 }
-

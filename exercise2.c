@@ -8,6 +8,8 @@
  */
 
 #include "exercise2.h"
+#include <assert.h>
+#include <stdio.h>
 
 /* 
  * Sort a singly linked list in-place using insertion sort

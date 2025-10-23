@@ -21,45 +21,35 @@
  */
 
 
-void swap(int a, int b, int* x, int n)
+node* isort(node* list)
 {
-  /* pre-condition */
-  /* a and b are within bounds of x array */
-  assert (0 <= a && a < n &&
-          0 <= b && b < n);
+node* sorted = NULL;  
 
-  /* post-condition */
-  int t; /* temporary variable for swapping */
-  t = x[a];
-  x[a] = x[b];
-  x[b] = t;
+    while (list != NULL) {
+        node* current = list;
+        list = list->next; 
+
+        if (sorted == NULL || sorted->data >= current->data) {
+            current->next = sorted;
+            sorted = current;
+            } 
+            
+            else {
+            node* temp = sorted;
+            
+            while (temp->next != NULL && temp->next->data < current->data) {
+                temp = temp->next;
+            }
+            
+            current->next = temp->next;
+            temp->next = current;
+        }
+    }
+
+    return sorted; 
 }
 
-node* isort(int n, int* x)
-{
-   int i;  /* counter variable */
-   int j;  /* counter variable */
 
-   /* pre-condition */
-   assert (0 <= n);
-
-   /* post-condition: x[0..n] is sorted */
-   for(i = 1; i < n; i = i + 1)
-   {
-     /* invariant: x[0..i-1] is sorted */
-     j = i;
-       /* insert next element j into 
-        * ordered position
-        */
-     for(; j > 0; j = j - 1)
-     {
-       if(x[j] > x[j-1])
-         break; /* jth element is in correct position */
-       else
-         swap(j, j-1, x, n);
-     }
-   }
-}
 
 /* Helper function to print the list */
 void print_list(node* list) {
